@@ -1,0 +1,257 @@
+
+/* 全局控制 */
+body { margin:0 auto; padding:0; font-size:12px; color:#33322e; background:url(../img/bg.jpg) no-repeat center top; font-family:"微软雅黑",“宋体”; }
+body > div { text-align:center; margin-right:auto; margin-left:auto; }
+div,form,img,ul,ol,li,dl,dt,dd,p,span,button { margin:0; padding:0; border:0; }
+table { border-collapse:collapse; border:0; }
+input,select,textarea,table,td { font-size:12px; color:#454545; vertical-align:middle; }
+h1,h2,h3,h4,h5,h6 { margin:0; padding:0; border:0; font-weight:normal; }
+ul { text-align:left; }
+ul,li,ol { list-style:none; }
+img { vertical-align:middle; }
+
+/* 默认链接 */
+a,a:link { color:#454545; text-decoration:none; blr:e-xpression(this.onFocus=this.blur()); outline: none; } /* 链接颜色 */
+a:hover { text-decoration:underline; } /* 鼠标经过时状态 */
+
+/* 左右悬浮 */
+.left {float:left;}
+.right {float:right;}
+
+/* clearfix */
+.clearfix:after {content:" ";display:block;height:0;clear:both;visibility:hidden;}
+* html .clearfix:after{ height:1%;} *:first-child+html .clearfix:after{min-height:1px;}
+
+/* 清除悬浮 */
+.clear {clear:both; overflow:hidden; } /* 用于清除悬浮 */
+.clearBgColor {clear:both;visibility:hidden; background:none!important; height:1px;font-size:1px;margin:-1px;} /* 用于清除背景色 */
+
+/* 清除背景 */
+.no_bg { background:none!important; } /* 用于清除背景图片 */
+.no_border { border:none!important; } /* 用于清除边框 */
+
+
+/* 居中 */
+.auto,.auto ul { margin-right:auto; margin-left:auto; }
+
+/* 图像居中 */
+.imgCenter { vertical-align:middle; }
+
+/* 文本对齐 */
+.txtLeft {text-align:left!important;}
+.txtCenter {text-align:center!important;}
+.txtRight {text-align:right!important;}
+
+/* 文字尺寸 */
+.f12 {font-size:12px;}
+.f14 {font-size:14px;}
+.f16 {font-size:16px;}
+.f18 {font-size:18px;}
+.f20 {font-size:20px;}
+.f22 {font-size:22px;}
+.f24 {font-size:24px;}
+.f26 {font-size:26px;}
+.f28 {font-size:28px;}
+
+/* 首字缩进 */
+.ti6 {text-indent:6px;}
+.ti12 {text-indent:12px;}
+.ti24 {text-indent:24px;}
+
+
+/* 文字加粗 */
+.fb {font-weight:bold;}
+.unfb { font-weight:normal; }
+
+
+/* 文字去加粗 */
+.unfb {font-weight:normal;}
+
+
+/* 下划线 */
+.underline,.underline a {text-decoration:underline;}
+
+
+/* 文字颜色 */
+.red,.red a {color:#FE1200!important;}				       /* 红色 */
+
+.brown,.brown a { color:#CF6501!important;}               /* 棕红色#9d080a; */
+
+.brown02,.brown02 a { color:#7e4800!important; }           /* 咖啡色 */
+
+.brown03,.brown03 a { color:#7c2d02!important; }           /* 咖啡色提示 */
+
+.orange,.orange a { color:#f16e50!important; }             /* 橘红色 */
+
+.orange02,.orange02 a { color:#f60!important; }             /* 通用橘红色 */
+
+.darkgray,.darkgray a {color:#424242!important;}			/* 深灰 */
+
+.tintgray,.tintgray a {color:#b7b7b7!important;}			/* 浅灰 */
+
+.gray,.gray a { color:#868686; background:none!important; }	/* 灰 */
+
+.gray2,.gray2 a {color:#454545!important;}		            /* 灰2 */
+
+.black,.black a {color:#000!important;}				        /* 黑色 */
+
+.blue,.blue a {color:#0072bb!important;}				            /* 湖蓝色 */
+
+.blue02,.blue02 a {color:#0072bb!important;}				 /* 深蓝色 */
+
+.blue03,.blue03 a {color:#722982!important;}				 /* 通用链接颜色 */
+
+.white,.white a {color:#fff!important;}				             /* 白色 */
+
+.purple,.purple a {color:#855fa8!important;}	702b82			 /* 紫色 */
+
+.purple02,.purple02 a {color:#702b82!important;}				 /* 紫色2 */
+
+
+
+
+/* 行高 */
+.lh16 {line-height:16px;}
+.lh18 {line-height:18px;}
+.lh20 {line-height:20px;}
+.lh22 {line-height:22px;}
+.lh24 {line-height:24px;}
+.lh26 {line-height:26px;}
+.lh28 {line-height:28px!important;}
+.lh30 {line-height:30px;}
+
+
+
+/* 间距 */
+.blank2 {margin:0 auto;width:100%;height:2px;font-size:1px;}
+.blank3 {margin:0 auto;width:100%;height:3px;font-size:1px;}
+.blank3_61707F {margin:0 auto;width:100%;height:3px;font-size:1px;background:#61707F}
+.blank5 {margin:0 auto;width:100%;height:5px;font-size:1px;}
+.blank7 {margin:0 auto;width:100%;height:7px;font-size:1px;}
+.blank10 {margin:0 auto;width:100%;height:10px;font-size:1px;}
+.blank5_fff {margin:0 auto;width:100%;height:5px;font-size:1px;background:#fff}
+.blank10_fff {margin:0 auto;width:100%;height:10px;font-size:1px;background:#fff}
+
+
+/* 背景颜色 */
+.tintGray_bg { background:#B7B7B7; }     /* 浅灰 */
+.generalGray_bg { background:#565656; }  /* 中灰 */
+.darkGray_bg { background:#424242; }     /* 深灰 */
+
+.tintBlue_bg { background:#f9fbfd; }     /* 浅蓝 */
+.generalBlue_bg { background:#e7edff; }  /* 中蓝 */
+.darkBlue_bg { background:#D2EEFF; }     /* 深蓝 */
+
+
+/* 宽度 */
+.w20 { width:20%; float:left; }
+.w20a { width:20%; }
+.w40 { width:40%; }
+.w49 { width:49%; }
+.w60 { width:60%; }
+.w460{ width:460px;}
+.w550{ width:550px;}
+.w530{ width:530px;}
+.w110{ width:110px;}
+.w_88 { width:88px!important; }
+
+
+
+/* 左右间距 */
+.mlr2 { margin-left:2px; margin-right:2px; }
+.ml2 { margin-left:2px!important; }
+/* 增加.mr1和.mr3，首页分享给按钮调整 */
+.mr1 { margin-right:1px; }
+.mr2 { margin-right:2px; }
+.mr3 { margin-right:3px; }
+.ml5 { margin-left:5px!important; }
+.ml6 { margin-left:6px!important; }
+.ml8 { margin-left:8px!important; }
+.mr5 { margin-right:5px!important; }
+.mr6 { margin-right:5px!important; }
+.mr8 { margin-right:8px!important; }
+.mlr5 { margin-left:5px!important; margin-right:5px!important; }
+
+.ml10 { margin-left:10px!important; }
+.mr10 { margin-right:10px!important; }
+.mlr5 { margin-left:5px!important; margin-right:5px!important; }
+.mlr6 { margin-left:6px!important; margin-right:6px!important; }
+.mlr8 { margin-left:8px!important; margin-right:8px!important; }
+.mlr10 { margin-left:10px!important; margin-right:10px!important; }
+
+.mr13 { margin-right:13px!important; }
+.ml15 { margin-left:15px!important; }
+.ml20 { margin-left:20px!important; }
+.ml25 { margin-left:25px!important; }
+.mr15 { margin-right:15px!important; }
+.mlr15 { margin-left:15px!important; margin-right:15px!important; }
+.mlr20 { margin-left:20px!important; margin-right:20px!important; }
+.mlr25 { margin-left:25px!important; margin-right:25px!important; }
+.mlr30 { margin-left:30px!important; margin-right:30px!important; }
+
+
+.mr25 { margin-right:25px!important; }
+.mr20 { margin-right:20px!important; }
+
+.mr30 { margin-right:30px!important; }
+.ml30 { margin-left:30px!important; }
+.ml40 { margin-left:40px!important; }
+.ml50 { margin-left:50px!important; }
+.ml55 { margin-left:55px!important; }
+.ml60  { margin-left:60px!important; }
+.ml184 { margin-left:184px!important; }
+
+
+/*LT**/
+.mr14 { margin-right:14px; }
+.mr6 {  margin-right:6px;}
+.mr7 {  margin-right:7px;}
+
+/* 上下间距 */
+.mt2 { margin-top:2px!important; }
+.mt3 { margin-top:3px!important; }
+.mb_5 { _margin-bottom:5px!important; }
+.mt5 { margin-top:5px!important; }
+.mt6 { margin-top:6px!important; }
+.mt7 { margin-top:7px!important; }
+.mb2 { margin-bottom:2px!important; }
+.mb5 { margin-bottom:5px!important; }
+.mtb5 { margin-top:5px!important; margin-bottom:5px!important; } 
+
+.pt5 { padding-top:5px; }
+.pb5 { padding-bottom:5px; }
+.ptb5 { padding:5px auto; } 
+
+
+.mt10 { margin-top:10px!important; }
+.mb10 { margin-bottom:10px!important; }
+.mtb10 { margin-top:10px!important; margin-bottom:10px!important; } 
+
+.mt15 { margin-top:15px!important;; }
+.mt17 { margin-top:17px; }
+.mt18 { margin-top:18px; }
+.mt20 { margin-top:20px!important; }
+.mb15 { margin-bottom:15px!important; }
+.mtb15 { margin:15px auto!important; } 
+
+.pt10 { padding-top:10px; }
+.pb10 { padding-bottom:10px; }
+.ptb10 { padding:10px auto; } 
+
+.pt15 { padding-top:15px; }
+.pb15 { padding-bottom:15px; }
+.ptb15 { padding:15px auto; } 
+
+
+
+/* 上下左右间距 */
+.mg5 { margin:5px; }
+.mg10 { margin:10px; }
+
+
+/* 上下左右距离清零 */
+.mp0 { margin:0!important; padding:0!important; }
+
+
+
+

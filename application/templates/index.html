@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="App" >
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=IE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>天空工场内部账号服务系统</title>
+<link href="css/index.css" rel="stylesheet" type="text/css" />
+<link href="css/reset.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="js/jquery-1.8.1.min.js"></script>
+<script type="text/javascript" src="js/angular.min.js"></script>
+<script type="text/javascript" src="js/angular-resource.min.js"></script>
+<script type="text/javascript" src="js/angular-cookies.min.js"></script>
+<script type="text/javascript" src="js/controller.js"></script>
+
+</head>
+
+<body>
+<!-- 整体区域开始 -->
+<div class="wrapper" ng-controller="root-controller">
+
+    <!-- 页头区域开始 -->    
+    <div class="header">
+            <div class="mainwrap"></div>   
+         <!-- nav 区域开始 -->          
+            <div class="nav">
+                <ul>
+                    <li ng-click="tabClick(0)" ng-class="{nav_active:currentTab==0}">新人注册</li>
+                    <li ng-click="tabClick(1)" ng-class="{nav_active:currentTab==1}">密码找回</li>
+                    <!-- <li>3.激活成功</li> -->
+                </ul>   
+            </div>  
+         <!-- nav 区域结束 -->   
+    </div>
+    <!-- 页头区域结束 -->
+    
+    <!-- 中部区域开 S-->
+    <div class="content" ng-show="currentTab==0">
+    
+        <!-- 中部左侧区域开始 -->
+        <h3 class='f24'>欢迎使用天空工场内部账号服务系统</h3>
+        <h4></h4>
+        <p style="margin-top: 25px;" class='f16'>同学您好，系统将通过报名邮箱来验证您的真实身份。</p>
+        <p class='f16'>验证通过后，你可以开始使用FTP、Intranet等内部系统。</p>
+       <form action="#" method="post">
+        <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" class="tab">
+          <tr>
+            <td width="30%">报名邮箱：</td>
+            <td ><input class="input" type="text" value="" ng-model="email"/></td>
+            <td width="20%"><span class="field-msg">{{tip_email}}</span></td>
+          </tr>
+          <tr>
+            <td width="30%">真实姓名：</td>
+            <td ><input class="input" type="text" value="" ng-model="realname"/></td>
+            <td width="20%"><span class="field-msg">{{tip_realname}}</span></td>
+          </tr>
+          <tr>
+            <td width="30%">　用户名：</td>
+            <td ><input class="input" type="text" value="" ng-model="userid"/></td>
+            <td width="20%"><span class="field-msg">{{tip_userid}}</span></td>
+          </tr>
+          <tr>
+            <td width="30%">　　密码：</td>
+            <td ><input class="input" type="text" value="" ng-model="passwd"/></td>
+            <td width="20%"><span class="field-msg">{{tip_passwd}}</span></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="button" class="button2" value='注册' ng-click="register()"/></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="3" style="font-size:14px;">使用中遇到问题请联系thu_skyworks<script>document.write('@'+(125+1))</script>.com</td>
+          </tr>
+        </table>
+    </form>
+    
+        <!-- 中部左区区域结束 -->
+    </div>
+    <div class="content" ng-show="currentTab==1">
+    
+        <!-- 中部左侧区域开始 -->
+        <h3 class='f24'>欢迎使用天空工场内部账号服务系统</h3>
+        <h4></h4>
+        <p style="margin-top: 25px;" class='f16'>使用注册时的邮箱重置密码。</p>
+       <form action="#" method="post">
+        <table width="80%" border="0" align="center" cellpadding="0" cellspacing="0" class="tab">
+          <tr ng-show="reset_step==1">
+            <td width="30%">　　邮箱：</td>
+            <td ><input class="input" type="text" value="" ng-model="email"/></td>
+            <td width="20%"><span class="field-msg">{{tip_email}}</span></td>
+          </tr>
+          <tr ng-show="reset_step==1">
+              <td width="30%"></td>
+              <td><span class="field-msg">{{error_tip}}</span></td>
+              <td width="20%"></td>
+          </tr>
+          <tr ng-show="reset_step==2">
+            <td width="30%">　用户名：</td>
+            <td ><input class="input" type="text" readonly ng-model="userid"/></td>
+            <td width="20%"><span class="field-msg">{{tip_userid}}</span></td>
+          </tr>
+          <tr ng-show="reset_step==2">
+            <td width="30%">　　密码：</td>
+            <td ><input class="input" type="text" value="" ng-model="passwd"/></td>
+            <td width="20%"><span class="field-msg">{{tip_passwd}}</span></td>
+          </tr>
+          <tr ng-show="reset_step==2">
+            <td width="30%">重复密码：</td>
+            <td ><input class="input" type="text" value="" ng-model="reppasswd"/></td>
+            <td width="20%"><span class="field-msg">{{tip_reppasswd}}</span></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input ng-show="reset_step==1" type="button" class="button2" value='验证邮箱' ng-click="verify_email()"/></td>
+            <td><input ng-show="reset_step==2" type="button" class="button2" value='设置密码' ng-click="set_passwd()"/></td>
+          </tr>
+          <tr>
+            <td height="30" colspan="3" style="font-size:14px;">使用中遇到问题请联系thu_skyworks<script>document.write('@'+(125+1))</script>.com</td>
+          </tr>
+        </table>
+    </form>
+    
+        <!-- 中部左区区域结束 -->
+    </div>
+    <!-- 中部区域结束 -->
+
+    
+    <!-- 页脚区域开始 -->
+    
+
+<div class="footer">
+    <p id="p_footer">
+        &copy; 2016 Skyworks
+    </p>
+</div>
+    <!-- 页脚区域结束 -->
+
+</div>
+<!-- 整体区域结束 -->
+    
+</body>
+</html>
