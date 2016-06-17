@@ -20,7 +20,7 @@ if __name__ == '__main__':
         level = (logging.NOTSET if app.config['DEBUG'] else logging.INFO), format = '%(asctime)s [%(funcName)s][%(levelname)s]: %(message)s')  
 
     if app.config['DEBUG']:
-        app.run(host='0.0.0.0')
+        app.run()
     else:
         uid = pwd.getpwnam(app.config['WORKER_USER'])[2]
         os.setuid(uid)
