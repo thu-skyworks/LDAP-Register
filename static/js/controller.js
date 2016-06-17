@@ -2,7 +2,7 @@ var App = angular.module('App', ['ngResource', 'ngCookies']);
 
 App.factory('ErrNotify', function () {
     var errList = ['成功', '错误的参数', '没有这个用户', '密码错误',
-        '用户没有登录', '用户已存在', '会话过期', '没有绑定', '账号绑定过期',
+        '用户没有登录', '用户或邮箱已存在', '会话过期', '没有绑定', '账号绑定过期',
         '用户没有发过状态', '对方没有开通本应用', '密码过短或过长',
         '第三方API错误', '操作超时', '清语API错误',
         '至少绑定一个账号'];
@@ -33,7 +33,7 @@ App.factory('ErrNotify', function () {
 });
 
 
-App.controller('root-controller', function ($scope,$http) {
+App.controller('root-controller', function ($scope,$http,ErrNotify) {
     $scope.tabClick = function(tab) {
         $scope.currentTab=tab;
     };
@@ -43,6 +43,7 @@ App.controller('root-controller', function ($scope,$http) {
         $scope.tip_passwd=($scope.passwd===''?(err=1,'不能为空'):'');
         $scope.tip_userid=($scope.userid===''?(err=1,'不能为空'):'');
         $scope.tip_realname=($scope.realname===''?(err=1,'不能为空'):'');
+        $scope.error_tip_reg='';
         if(err)
             return;
         $http.post('user/reg',
@@ -56,12 +57,12 @@ App.controller('root-controller', function ($scope,$http) {
             )
             .success(function (result) {
                 if (result.error) {
-                    $scope.error_tip = ErrNotify.strError(result.error)
-                    return
+                    $scope.error_tip_reg = ErrNotify.strError(result.error)
+                    return;
+                }else{
+                    alert('注册成功！')
                 }
-                if (!ErrNotify.handleError(result)) {
-                    location.href = 'app'
-                }
+                
             });
     };
     $scope.verify_email = function(){

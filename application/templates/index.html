@@ -60,8 +60,13 @@
           </tr>
           <tr>
             <td width="30%">　　密码：</td>
-            <td ><input class="input" type="text" value="" ng-model="passwd"/></td>
+            <td ><input class="input" type="password" value="" ng-model="passwd"/></td>
             <td width="20%"><span class="field-msg">{{tip_passwd}}</span></td>
+          </tr>
+          <tr>
+              <td width="30%"></td>
+              <td><span class="field-msg">{{error_tip_reg}}</span></td>
+              <td width="20%"></td>
           </tr>
           <tr>
             <td></td>
@@ -100,12 +105,12 @@
           </tr>
           <tr ng-show="reset_step==2">
             <td width="30%">　　密码：</td>
-            <td ><input class="input" type="text" value="" ng-model="passwd"/></td>
+            <td ><input class="input" type="password" value="" ng-model="passwd"/></td>
             <td width="20%"><span class="field-msg">{{tip_passwd}}</span></td>
           </tr>
           <tr ng-show="reset_step==2">
             <td width="30%">重复密码：</td>
-            <td ><input class="input" type="text" value="" ng-model="reppasswd"/></td>
+            <td ><input class="input" type="password" value="" ng-model="reppasswd"/></td>
             <td width="20%"><span class="field-msg">{{tip_reppasswd}}</span></td>
           </tr>
           <tr>
