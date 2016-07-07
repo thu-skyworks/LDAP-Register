@@ -17,12 +17,10 @@ def obtain_handle():
 
 def search_existing_user(handle, userid):
     res = handle.search_s(app.config['LDAP_BASE'],ldap.SCOPE_SUBTREE,'(cn={})'.format(userid),['cn','mail'])
-    print res
     return len(res)>0
 
 def search_existing_email(handle, email):
     res = handle.search_s(app.config['LDAP_BASE'],ldap.SCOPE_SUBTREE,'(mail={})'.format(email),['cn','mail'])
-    print res
     return len(res)>0
 
 def do_user_reg(userid, passwd, realname, email):
@@ -36,7 +34,7 @@ def do_user_reg(userid, passwd, realname, email):
         if search_existing_email(l, email):
             return ErrorCode.ALREADY_EXISTS
         user_tpl={
-            'objectClass': ('top','person','organizationalPerson','inetOrgPerson','extensibleObject'),
+            'objectClass': ('top','person','organizationalPerson','inetOrgPerson','extensibleObject','posixAccount','shadowAccount','apple-user'),
             'uid': userid,
             'displayName': userid,
             'authAuthority': ';basic;',
@@ -46,10 +44,10 @@ def do_user_reg(userid, passwd, realname, email):
             'sn': userid,
             'gecos': realname.encode('utf-8'),
             # mobile: 12333333333
-            uidNumber: 1999999,
-            gidNumber: 1000001,
-            loginShell: '/bin/sh',
-            homeDirectory: '/home/'+userid
+            'uidNumber': 1999999,
+            'gidNumber': 1000001,
+            'loginShell': '/bin/sh',
+            'homeDirectory': '/home/'+userid
         }
         attributes=[ (k,v) for k,v in user_tpl.items() ]
         l.add_s('uid={},'.format(userid)+app.config['LDAP_BASE'], attributes)
