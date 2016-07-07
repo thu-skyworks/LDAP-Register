@@ -44,12 +44,12 @@ def do_user_reg(userid, passwd, realname, email):
             'mail': email,
             'cn': userid,
             'sn': userid,
-            'gecos': realname.encode('utf-8')
+            'gecos': realname.encode('utf-8'),
             # mobile: 12333333333
-            # uidNumber: 999999
-            # gidNumber: 1000001
-            # loginShell: /bin/sh
-            # homeDirectory: /home/ceshi3
+            uidNumber: 1999999,
+            gidNumber: 1000001,
+            loginShell: '/bin/sh',
+            homeDirectory: '/home/'+userid
         }
         attributes=[ (k,v) for k,v in user_tpl.items() ]
         l.add_s('uid={},'.format(userid)+app.config['LDAP_BASE'], attributes)
