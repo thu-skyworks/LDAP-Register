@@ -11,3 +11,7 @@ LOG_FILENAME  = path.join(path.dirname(path.realpath(__file__)),'app.log')
 LDAP_BASE = ''
 LDAP_BIND = ''
 LDAP_BIND_PWD = ''
+
+LDAP_UID_CONF = ''
+
+GID_NUMBER = '1000001'
