@@ -27,7 +27,7 @@
 .content h4 { height:1px; margin:30px auto; line-height:88px; color:#580206; border-bottom:1px solid #FFF; }
 .content p { width:95%; margin:5px auto; line-height:25px; color:#580206; }
 .content p a { color:#1e4bda; font-weight:bold; }
-.content .field-msg {color:#e5020d; font-size:14px;}
+.content .field-msg {color:#e5020d; font-size:14px; }
 
 .tab { margin:10px auto; position: relative; z-index:30;}
 .tab td { height:55px; font-size:16px; color:#580206; }
@@ -36,7 +36,7 @@
 .tab td .span1 { width:40px; height:40px; line-height:40px; background:#dedede; color:#580205; display:block; float:left; }
 .tab td .span2 { width:80px; height:40px; line-height:40px; background:#dedede; color:#580205; display:block; float:left; }
 
-
+.text-left { text-align: left; }
 
 .tab td .s1 { background:#ff0008!important; }
 .tab td .s2 { background:#ffd800!important; }

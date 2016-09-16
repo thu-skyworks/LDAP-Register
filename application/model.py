@@ -1,4 +1,5 @@
 import ldap, ldap.modlist
+import requests
 import logging
 from helper import ErrorCode
 import crypt
@@ -6,8 +7,6 @@ import base64
 import bcrypt
 
 from . import app
-
-GID_NUMBER = '1000001'
 
 def passwd_hash(pwd):
     return '{CRYPT}'+crypt.crypt(pwd,'$6$'+bcrypt.gensalt()[0:7])
@@ -19,10 +18,12 @@ def obtain_handle():
 
 def search_existing_user(handle, userid):
     res = handle.search_s(app.config['LDAP_BASE'],ldap.SCOPE_SUBTREE,'(cn={})'.format(userid),['cn','mail'])
+    logging.debug(res)
     return len(res)>0
 
 def search_existing_email(handle, email):
     res = handle.search_s(app.config['LDAP_BASE'],ldap.SCOPE_SUBTREE,'(mail={})'.format(email),['cn','mail'])
+    logging.debug(res)
     return len(res)>0
 
 def next_uid_number(handle):
@@ -78,10 +79,25 @@ def do_user_reg(userid, passwd, realname, email):
             'homeDirectory': '/home/'+userid
         }
         attributes=[ (k,v) for k,v in user_tpl.items() ]
+        logging.debug(attributes)
         l.add_s('uid={},'.format(userid)+app.config['LDAP_BASE'], attributes)
+        logging.info('Registered')
         return ErrorCode.SUCCESS
     except ldap.LDAPError, error:
         logging.error(error)
     except Exception, e:
         logging.exception(e)
     return ErrorCode.UNKNOWN
+
+def check_permisson(email):
+    try:
+        payload = {'subscriber': email, 'list_id': app.config['MAIL_LIST_PERM_CHECK']}
+        r = requests.post(app.config['API_GET_MEMBER'], data=payload)
+        logging.debug(r.text)
+        j = r.json()
+        if ('total_size' in j.keys()) and j['total_size'] > 0:
+            return True
+    except Exception, e:
+        logging.exception(e)
+    return False
+
