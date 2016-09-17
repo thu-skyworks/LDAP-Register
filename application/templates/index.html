@@ -20,7 +20,7 @@
 
     <!-- 页头区域开始 -->    
     <div class="header">
-            <div class="mainwrap"></div>   
+            <div class="mainwrap pointer" onclick="location.href='/';"></div>   
          <!-- nav 区域开始 -->          
             <div class="nav">
                 <ul>
@@ -95,18 +95,8 @@
             <td ><input class="input" type="text" value="" ng-model="email"/></td>
             <td width="20%"><span class="field-msg">{{tip_email}}</span></td>
           </tr>
-          <tr ng-show="reset_step==1">
-              <td width="30%"></td>
-              <td><span class="field-msg">{{error_tip}}</span></td>
-              <td width="20%"></td>
-          </tr>
           <tr ng-show="reset_step==2">
-            <td width="30%">　用户名：</td>
-            <td ><input class="input" type="text" readonly ng-model="userid"/></td>
-            <td width="20%"><span class="field-msg">{{tip_userid}}</span></td>
-          </tr>
-          <tr ng-show="reset_step==2">
-            <td width="30%">　　密码：</td>
+            <td width="30%">设置密码：</td>
             <td ><input class="input" type="password" value="" ng-model="passwd"/></td>
             <td width="20%"><span class="field-msg">{{tip_passwd}}</span></td>
           </tr>
@@ -116,9 +106,17 @@
             <td width="20%"><span class="field-msg">{{tip_reppasswd}}</span></td>
           </tr>
           <tr>
+              <td width="30%"></td>
+              <td class="text-left"><span class="field-msg">{{error_tip}}</span></td>
+              <td width="20%"></td>
+          </tr>
+          <tr ng-show="reset_step==1">
             <td></td>
-            <td><input ng-show="reset_step==1" type="button" class="button2" value='验证邮箱' ng-click="verify_email()"/></td>
-            <td><input ng-show="reset_step==2" type="button" class="button2" value='设置密码' ng-click="set_passwd()"/></td>
+            <td><input type="button" class="button2" value='验证邮箱' ng-click="reset1()"/></td>
+          </tr>
+          <tr ng-show="reset_step==2">
+            <td></td>
+            <td><input type="button" class="button2" value='设置密码' ng-click="set_passwd()"/></td>
           </tr>
           <tr>
             <td height="30" colspan="3" style="font-size:14px;">使用中遇到问题请联系thu_skyworks<script>document.write('@'+(125+1))</script>.com</td>

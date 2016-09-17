@@ -26,6 +26,7 @@ class ErrorCode(object):
     PERMISSION_DENIED = 16
     PARSE_TOPLIST_ERROR = 17
     IN_PROGRESS = 18
+    INVALID_VERIFICATION = 19
 
 def json_response(errorCode, data):
     return json.dumps({'error': errorCode, 'response': data})

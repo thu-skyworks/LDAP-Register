@@ -48,4 +48,11 @@ def page_index():
 def page_reg():
     return views.user_reg()
 
+@app.route('/user/reset1', methods=['POST'])
+def page_reset1():
+    return views.user_reset_pwd_step1()
+
+@app.route('/user/reset2', methods=['POST'])
+def page_reset2():
+    return views.user_reset_pwd_step2()
 

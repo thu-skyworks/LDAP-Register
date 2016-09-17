@@ -24,5 +24,31 @@ def user_reg():
         return json_response(ret, {})
     except Exception, e:
         logging.exception('Exception occurred')
-    return empty_json_response(ErrorCode.WRONG_ARGUMENT)
+    return empty_json_response(code)
 
+def user_reset_pwd_step1():
+    code = ErrorCode.UNKNOWN
+    try:
+        email = request.form['email']
+        if not email or not validate_email(email):
+            return empty_json_response(ErrorCode.WRONG_ARGUMENT)
+        # if not model.check_permisson(email):
+        #     return empty_json_response(ErrorCode.PERMISSION_DENIED)
+        code = model.do_passwd_reset_verify(email)
+        return empty_json_response(code)
+    except Exception, e:
+        logging.exception('Exception occurred')
+    return empty_json_response(code)
+
+def user_reset_pwd_step2():
+    code = ErrorCode.UNKNOWN
+    try:
+        passwd = request.form['passwd']
+        verify = request.form['code']
+        if not passwd or not verify:
+            return empty_json_response(ErrorCode.WRONG_ARGUMENT)
+        code = model.do_passwd_reset(verify, passwd)
+        return empty_json_response(code)
+    except Exception, e:
+        logging.exception('Exception occurred')
+    return empty_json_response(code)

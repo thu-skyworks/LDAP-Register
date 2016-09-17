@@ -5,7 +5,7 @@ App.factory('ErrNotify', function () {
         '用户没有登录', '用户或邮箱已存在', '会话过期', '没有绑定', '账号绑定过期',
         '用户没有发过状态', '对方没有开通本应用', '密码过短或过长',
         '第三方API错误', '操作超时', '清语API错误',
-        '至少绑定一个账号'];
+        '至少绑定一个账号', '没有使用权限', '解析错误', '操作进行中', '无效的验证码'];
     errList[-1] = '未知错误';
     function showError(str) {
         showMessage(str, 'error');
@@ -33,7 +33,7 @@ App.factory('ErrNotify', function () {
 });
 
 
-App.controller('root-controller', function ($scope,$http,ErrNotify) {
+App.controller('root-controller', function ($scope,$http,$location,ErrNotify) {
     $scope.tabClick = function(tab) {
         $scope.currentTab=tab;
     };
@@ -60,20 +60,74 @@ App.controller('root-controller', function ($scope,$http,ErrNotify) {
                     $scope.error_tip_reg = ErrNotify.strError(result.error)
                     return;
                 }else{
-                    alert('注册成功！')
+                    alert('注册成功！您可以开始使用wiki、nas等业务了。');
+                    location.href = '/';
                 }
                 
             });
     };
-    $scope.verify_email = function(){
-        $scope.error_tip = '此功能暂不开放';
+    $scope.reset1 = function(){
+        var err=0;
+        $scope.tip_email=($scope.email===''?(err=1,'不能为空'):'');
+        $scope.error_tip='';
+        if(err)
+            return;
+        $http.post('user/reset1',
+            $.param({
+                    email: $scope.email, 
+                }),
+                {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
+            )
+            .success(function (result) {
+                if (result.error) {
+                    $scope.error_tip = ErrNotify.strError(result.error)
+                    return;
+                }else{
+                    alert('密码重置邮件已发送，请根据邮件内容操作！（未收到请检查垃圾邮件）');
+                    location.href = '/';
+                }
+            });
+
+    }
+    $scope.set_passwd = function(){
+        var err=0;
+        $scope.tip_passwd=($scope.passwd===''?(err=1,'不能为空'):'');
+        if($scope.reppasswd === ''){
+            err = 1;
+            $scope.tip_reppasswd = '不能为空';
+        }else if($scope.reppasswd!==$scope.passwd){
+            err = 1;
+            $scope.tip_reppasswd = '输入不相同';
+        }else{
+            $scope.tip_reppasswd = '';
+        }
+        $scope.error_tip='';
+        if(err)
+            return;
+        $http.post('user/reset2',
+            $.param({
+                    passwd: $scope.passwd, 
+                    code: $location.search()['code']
+                }),
+                {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
+            )
+            .success(function (result) {
+                if (result.error) {
+                    $scope.error_tip = ErrNotify.strError(result.error)
+                    return;
+                }else{
+                    alert('密码重置成功');
+                    location.href = '/';
+                }
+            });
+
     }
     $scope.email='';
     $scope.userid='';
     $scope.passwd='';
     $scope.realname='';
-    $scope.currentTab=0;
-    $scope.reset_step=1;
+    $scope.currentTab=({'/reg':0, '/reset':1})[$location.path()] || 0;
+    $scope.reset_step=$location.search()['reset_step2'] ? 2 : 1;
 });
 App.directive('errSrc', function () {
     return {

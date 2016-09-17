@@ -26,3 +26,10 @@ API_GET_MEMBER = 'http://restadmin:restpass@localhost:8001/3.0/members/find'
 
 #Mailing for authentication
 MAIL_LIST_PERM_CHECK = 'notifications.groups.thu-skyworks.org'
+
+#System mail configs
+SMTP_SERVER = 'localhost:2525'
+SYS_MAIL_FROM = 'no-reply@groups.thu-skyworks.org'
+SYS_MAIL_SUBJECT = '天空工场账号服务'
+SYS_MAIL_LINK_BASE = 'http://127.0.0.1:5000'
+

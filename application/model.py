@@ -1,3 +1,6 @@
+#! /usr/bin/python
+# -*- encoding: utf-8 -*-
+
 import ldap, ldap.modlist
 import requests
 import logging
@@ -6,7 +9,7 @@ import crypt
 import base64
 import bcrypt
 
-from . import app
+from . import app, mail_helper, verification
 
 def passwd_hash(pwd):
     return '{CRYPT}'+crypt.crypt(pwd,'$6$'+bcrypt.gensalt()[0:7])
@@ -49,6 +52,49 @@ def next_uid_number(handle):
             raise Exception('failed to increase uidNumber')
 
     return uidNumber
+
+def do_passwd_reset_verify(email):
+    try:
+        l = obtain_handle()
+        email = email.encode('utf-8')
+        if not search_existing_email(l, email):
+            return ErrorCode.NO_SUCH_USER
+        verify = verification.alloc_verification_code({'op': 'reset_passwd', 'email': email})
+        assert len(verify)>0
+        link = app.config['SYS_MAIL_LINK_BASE']+'/#/reset?reset_step2&code='+verify
+        mail_helper.send(app.config['SYS_MAIL_FROM'], email, app.config['SYS_MAIL_SUBJECT'], '密码重置', link)
+        return ErrorCode.SUCCESS
+    except ldap.LDAPError, error:
+        logging.error(error)
+    except Exception, e:
+        logging.exception(e)
+    return ErrorCode.UNKNOWN
+
+def do_passwd_reset(verify, newpasswd):
+    data = verification.check_verification_code(verify)
+    logging.debug(data)
+    if data is None or data['op']!='reset_passwd':
+        return ErrorCode.INVALID_VERIFICATION
+    return do_passwd_change(data['email'], newpasswd)
+
+def do_passwd_change(email, newpasswd):
+    try:
+        l = obtain_handle()
+        email = email.encode('utf-8')
+        passwd = passwd_hash(newpasswd)
+
+        res = l.search_s(app.config['LDAP_BASE'],ldap.SCOPE_SUBTREE,'(mail={})'.format(email),['cn','mail'])
+        logging.debug(res)
+        assert len(res)>0
+        dn = res[0][0]
+        logging.info('Modify password of {}'.format(dn))
+        l.modify_s(dn, [( ldap.MOD_REPLACE, 'userPassword', passwd )])
+        return ErrorCode.SUCCESS
+    except ldap.LDAPError, error:
+        logging.error(error)
+    except Exception, e:
+        logging.exception(e)
+    return ErrorCode.UNKNOWN
 
 def do_user_reg(userid, passwd, realname, email):
     try:
