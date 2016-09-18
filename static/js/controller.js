@@ -39,19 +39,26 @@ App.controller('root-controller', function ($scope,$http,$location,ErrNotify) {
     };
     $scope.register = function(){
         var err=0;
-        $scope.tip_email=($scope.email===''?(err=1,'不能为空'):'');
-        $scope.tip_passwd=($scope.passwd===''?(err=1,'不能为空'):'');
-        $scope.tip_userid=($scope.userid===''?(err=1,'不能为空'):'');
-        $scope.tip_realname=($scope.realname===''?(err=1,'不能为空'):'');
+        var regemail=(($scope.regemail||'').trim());
+        var userid=(($scope.userid||'').trim());
+        var realname=(($scope.realname||'').trim());
+        var regpasswd = ($scope.regpasswd||'');
+        $scope.tip_regemail=(!validateEmail(regemail)?(err=1,'无效的邮箱'):'');
+        $scope.tip_userid=(userid===''?
+                (err=1,'不能为空'):
+                (/^\w+$/.test(userid) ? '': (err=1,'仅允许字母数字'))
+            );
+        $scope.tip_regpasswd=(regpasswd===''?(err=1,'不能为空'):'');
+        $scope.tip_realname=(realname===''?(err=1,'不能为空'):'');
         $scope.error_tip_reg='';
         if(err)
             return;
         $http.post('user/reg',
             $.param({
-                    email: $scope.email, 
-                    userid: $scope.userid,
-                    passwd: $scope.passwd,
-                    realname: $scope.realname,
+                    email: regemail, 
+                    userid: userid,
+                    passwd: regpasswd,
+                    realname: realname,
                 }),
                 {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}
             )
@@ -153,3 +160,7 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
+function validateEmail(email) {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
